@@ -5,6 +5,9 @@
 package view;
 
 import java.awt.event.ItemEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -291,6 +294,11 @@ public class HomeFrm extends javax.swing.JFrame {
         getContentPane().add(btnQuitarCom, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 780, -1, -1));
 
         btnNeto.setText("Neto a pagar");
+        btnNeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNetoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnNeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 780, -1, -1));
         getContentPane().add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 780, 150, -1));
 
@@ -875,6 +883,54 @@ DefaultTableModel model = new DefaultTableModel();
         LoginFrm loginFrm = new LoginFrm();
         loginFrm.setVisible(true);
     }//GEN-LAST:event_cerrarSesionActionPerformed
+
+    private void btnNetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNetoActionPerformed
+        // TODO add your handling code here:
+          // Verificar si hay al menos una compra realizada
+    if (tabla.getRowCount() > 0) {
+        try {
+            // Obtener el nombre del archivo
+            String nombreArchivo = "ticket.txt";
+
+            // Crear el FileWriter y PrintWriter
+            FileWriter archivo = new FileWriter(nombreArchivo);
+            PrintWriter escritor = new PrintWriter(archivo);
+
+            // Escribir los detalles del pedido en el archivo
+            escritor.println("DETALLES DEL PEDIDO");
+            escritor.println("-------------------");
+            escritor.println();
+
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+                String producto = tabla.getValueAt(i, 0).toString();
+                String genero = tabla.getValueAt(i, 1).toString();
+                String talla = tabla.getValueAt(i, 2).toString();
+                double precio = Double.parseDouble(tabla.getValueAt(i, 3).toString());
+                int cantidad = Integer.parseInt(tabla.getValueAt(i, 4).toString());
+                double total = Double.parseDouble(tabla.getValueAt(i, 5).toString());
+
+                escritor.println("Producto: " + producto);
+                escritor.println("Género: " + genero);
+                escritor.println("Talla: " + talla);
+                escritor.println("Precio: $" + precio);
+                escritor.println("Cantidad: " + cantidad);
+                escritor.println("Total: $" + total);
+                escritor.println();
+            }
+
+            // Cerrar el FileWriter y PrintWriter
+            escritor.close();
+            archivo.close();
+
+            System.out.println("Ticket generado correctamente.");
+
+        } catch (IOException e) {
+            System.out.println("Error al generar el ticket: " + e.getMessage());
+        }
+    } else {
+        System.out.println("No hay compras realizadas para generar el ticket.");
+    }
+    }//GEN-LAST:event_btnNetoActionPerformed
 
     /**
      * @param args the command line arguments
