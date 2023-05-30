@@ -9,6 +9,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
@@ -72,6 +79,7 @@ public class HomeFrm extends javax.swing.JFrame {
         btnNeto = new javax.swing.JButton();
         txtTotalCompra = new javax.swing.JTextField();
         cerrarSesion = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,7 +159,7 @@ public class HomeFrm extends javax.swing.JFrame {
 
         jLabel9.setText("Total a pagar:");
 
-        btnCompra.setText("Generar compra");
+        btnCompra.setText("Agregar al carrito");
         btnCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompraActionPerformed(evt);
@@ -293,14 +301,14 @@ public class HomeFrm extends javax.swing.JFrame {
         });
         getContentPane().add(btnQuitarCom, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 780, -1, -1));
 
-        btnNeto.setText("Neto a pagar");
+        btnNeto.setText("Generar compra");
         btnNeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNetoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 780, -1, -1));
-        getContentPane().add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 780, 150, -1));
+        getContentPane().add(btnNeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 780, -1, -1));
+        getContentPane().add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 800, 150, -1));
 
         cerrarSesion.setText("Cerrar Sesion");
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -309,6 +317,9 @@ public class HomeFrm extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 780, -1, -1));
+
+        jLabel10.setText("Neto a pagar:");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 780, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -887,7 +898,7 @@ DefaultTableModel model = new DefaultTableModel();
     private void btnNetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNetoActionPerformed
         // TODO add your handling code here:
           // Verificar si hay al menos una compra realizada
-    if (tabla.getRowCount() > 0) {
+   /* if (tabla.getRowCount() > 0) {
         try {
             // Obtener el nombre del archivo
             String nombreArchivo = "ticket.txt";
@@ -929,6 +940,89 @@ DefaultTableModel model = new DefaultTableModel();
         }
     } else {
         System.out.println("No hay compras realizadas para generar el ticket.");
+    }*/
+    if (tabla.getRowCount() > 0) {
+        // Obtener los datos del usuario
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
+        String apellido = JOptionPane.showInputDialog(this, "Ingrese su apellido:");
+        String usuario = JOptionPane.showInputDialog(this, "Ingrese su usuario:");
+        String correo = JOptionPane.showInputDialog(this, "Ingrese su correo electrónico:");
+        String calle = JOptionPane.showInputDialog(this, "Ingrese la dirección de su calle:");
+        String numero = JOptionPane.showInputDialog(this, "Ingrese el número exterior:");
+        String numeroIn = JOptionPane.showInputDialog(this, "Ingrese su número interior (solo en caso de tenerlo, de lo contrario, escriba 0):");
+        String colonia = JOptionPane.showInputDialog(this, "Ingrese su colonia:");
+        String cp = JOptionPane.showInputDialog(this, "Ingrese su código postal:");
+        String ciudad = JOptionPane.showInputDialog(this, "Ingrese su ciudad:");
+        String estado = JOptionPane.showInputDialog(this, "Ingrese su estado (solo México):");
+        JOptionPane.showMessageDialog(this, "Gracias por elegirnos, los detalles de facturacion se guardaran a continuación");
+
+        if (nombre != null && apellido != null && usuario != null && correo != null) {
+            try {
+                // Crear el selector de archivo
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Guardar Ticket");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto (.txt)", "txt");
+                fileChooser.setFileFilter(filter);
+
+                // Mostrar el diálogo de guardar archivo
+                int userSelection = fileChooser.showSaveDialog(this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    // Obtener el archivo seleccionado
+                    String pathArchivo = fileChooser.getSelectedFile().getPath();
+
+                    // Crear el FileWriter y PrintWriter
+                    FileWriter archivo = new FileWriter(pathArchivo);
+                    PrintWriter escritor = new PrintWriter(new BufferedWriter(archivo));
+
+                    // Escribir los detalles del pedido en el archivo
+                    escritor.println("DETALLES DEL PEDIDO");
+                    escritor.println("-------------------");
+                    escritor.println();
+                    escritor.println("Nombre: " + nombre);
+                    escritor.println("Apellido: " + apellido);
+                    escritor.println("Usuario: " + usuario);
+                    escritor.println("Correo electrónico: " + correo);
+                    escritor.println("Calle: " + calle);
+                    escritor.println("Número exterior: " + numero);
+                    escritor.println("Número interior: " + numeroIn);
+                    escritor.println("Colonia: " + colonia);
+                    escritor.println("Código postal: " + cp);
+                    escritor.println("Ciudad: " + ciudad);
+                    escritor.println("Estado: " + estado);
+                    escritor.println();
+
+                    for (int i = 0; i < tabla.getRowCount(); i++) {
+                        String producto = tabla.getValueAt(i, 0).toString();
+                        String genero = tabla.getValueAt(i, 1).toString();
+                        String talla = tabla.getValueAt(i, 2).toString();
+                        double precio = Double.parseDouble(tabla.getValueAt(i, 3).toString());
+                        int cantidad = Integer.parseInt(tabla.getValueAt(i, 4).toString());
+                        double total = Double.parseDouble(tabla.getValueAt(i, 5).toString());
+
+                        escritor.println("Producto: " + producto);
+                        escritor.println("Género: " + genero);
+                        escritor.println("Talla: " + talla);
+                        escritor.println("Precio: $" + precio);
+                        escritor.println("Cantidad: " + cantidad);
+                        escritor.println("Total: $" + total);
+                        escritor.println();
+                    }
+
+                    // Cerrar el FileWriter y PrintWriter
+                    escritor.close();
+                    archivo.close();
+
+                    JOptionPane.showMessageDialog(this, "Ticket generado correctamente. Guardado en: " + pathArchivo);
+                }
+            } catch (IOException e) {
+                System.out.println("Error al generar el ticket: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos del usuario.");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No hay compras realizadas para generar el ticket.");
     }
     }//GEN-LAST:event_btnNetoActionPerformed
 
@@ -985,6 +1079,7 @@ DefaultTableModel model = new DefaultTableModel();
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

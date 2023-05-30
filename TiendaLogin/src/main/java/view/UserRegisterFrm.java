@@ -21,6 +21,7 @@ public class UserRegisterFrm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -46,7 +47,7 @@ public class UserRegisterFrm extends javax.swing.JDialog {
         txtPassword = new javax.swing.JPasswordField();
         Password2 = new javax.swing.JPasswordField();
         Registrar = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,14 +74,19 @@ public class UserRegisterFrm extends javax.swing.JDialog {
             }
         });
 
-        Cancelar.setText("Cancelar");
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(245, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(213, 213, 213))
             .addGroup(layout.createSequentialGroup()
@@ -100,8 +106,8 @@ public class UserRegisterFrm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Registrar)
-                        .addGap(111, 111, 111)
-                        .addComponent(Cancelar))
+                        .addGap(18, 18, 18)
+                        .addComponent(cancelar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(Password2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                         .addComponent(Name, javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,37 +149,94 @@ public class UserRegisterFrm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Registrar)
-                    .addComponent(Cancelar))
+                    .addComponent(cancelar))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private String name;
+    private String lastName;
+    private String mail;
+    private String username;
+    private String password;
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
-        if(!Name.getText().isEmpty() &&
-                !LastName.getText().isEmpty() &&
-                !Mail.getText().isEmpty() &&
-                !txtUser.getText().isEmpty() &&
-                !txtPassword.getText().isEmpty() &&
-                Password2.getText().equals(txtPassword.getText())){
-            
-            User user = new User(txtUser.getText(), txtPassword.getText(), Name.getText(), LastName.getText(), Mail.getText());
-            if(UserLogic.insert(user)){
+        if (!Name.getText().isEmpty()
+                && !LastName.getText().isEmpty()
+                && !Mail.getText().isEmpty()
+                && !txtUser.getText().isEmpty()
+                && !txtPassword.getText().isEmpty()
+                && Password2.getText().equals(txtPassword.getText())) {
+
+            name = Name.getText();
+            lastName = LastName.getText();
+            mail = Mail.getText();
+            username = txtUser.getText();
+            password = txtPassword.getText();
+
+            User user = new User(username, password, name, lastName, mail);
+            if (UserLogic.insert(user)) {
                 JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente");
                 this.dispose();
                 LoginFrm loginFrm = new LoginFrm();
                 loginFrm.setVisible(true);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Usuario ya existente");
             }
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    
+
+   /* if (!Name.getText () 
+        .isEmpty()
+                && !LastName.getText().isEmpty()
+                && !Mail.getText().isEmpty()
+                && !txtUser.getText().isEmpty()
+                && !txtPassword.getText().isEmpty()
+                && Password2.getText().equals(txtPassword.getText())) {
+
+            User user = new User(txtUser.getText(), txtPassword.getText(), Name.getText(), LastName.getText(), Mail.getText());
+        if (UserLogic.insert(user)) {
+            JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente");
+            this.dispose();
+            LoginFrm loginFrm = new LoginFrm();
+            loginFrm.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario ya existente");
+        }
+    }*/
     }//GEN-LAST:event_RegistrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        LoginFrm loginFrm = new LoginFrm();
+        loginFrm.setVisible(true);
+    }//GEN-LAST:event_cancelarActionPerformed
+
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -184,16 +247,28 @@ public class UserRegisterFrm extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -203,7 +278,7 @@ public class UserRegisterFrm extends javax.swing.JDialog {
                 UserRegisterFrm dialog = new UserRegisterFrm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
@@ -213,12 +288,12 @@ public class UserRegisterFrm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cancelar;
     private javax.swing.JTextField LastName;
     private javax.swing.JTextField Mail;
     private javax.swing.JTextField Name;
     private javax.swing.JPasswordField Password2;
     private javax.swing.JButton Registrar;
+    private javax.swing.JButton cancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -163,7 +163,7 @@ public class LoginFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_checkPasswordActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        if (!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
+        /*  if (!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
             if (UserLogic.autentify(txtUser.getText(), txtPassword.getText())) {
                 JOptionPane.showMessageDialog(this, "Bienvenido");
                 this.dispose();
@@ -178,10 +178,75 @@ public class LoginFrm extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "El usuario es requerido!");
         }
+        String username = txtUser.getText();
+        String password = txtPassword.getText();
+
+        if (!username.isEmpty() && !password.isEmpty()) {
+            if (authenticateEmployee(username, password)) {
+                JOptionPane.showMessageDialog(this, "Bienvenido");
+                this.dispose();
+                SalaryEmployee salaryEmployeeFrm = new SalaryEmployee();
+                salaryEmployeeFrm.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos!!!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario y la contraseña son requeridos!");
+        }
+    }
+
+    private boolean authenticateEmployee(String username, String password) {
+        // Definir los usuarios y contraseñas predefinidos
+        String[] usernames = {"Employee#1", "Employee#2", "Employee#3", "Employee#4", "Employee#5", "Employee#6", "Employee#7", "Employee#8", "Employee#9", "Employee#10", "Employee#11", "Employee#12"};
+        String[] passwords = {"Slave#1", "Slave#2", "Slave#3", "Slave#4", "Slave#5", "Slave#6", "Slave#7", "Slave#8", "Slave#9", "Slave#10", "Slave#11", "Slave#12"};
+
+        // Verificar si el usuario y la contraseña coinciden
+        for (int i = 0; i < usernames.length; i++) {
+            if (username.equals(usernames[i]) && password.equals(passwords[i])) {
+                return true;
+            }
+        }
+
+        return false;*/
+        String username = txtUser.getText();
+        String password = txtPassword.getText();
+
+        if (!username.isEmpty() && !password.isEmpty()) {
+            if (UserLogic.autentify(username, password)) {
+                JOptionPane.showMessageDialog(this, "Bienvenido");
+                this.dispose();
+                HomeFrm homeFrm = new HomeFrm();
+                homeFrm.setVisible(true);
+            } else if (authenticateEmployee(username, password)) {
+                JOptionPane.showMessageDialog(this, "Bienvenido");
+                this.dispose();
+                SalaryEmployee salaryEmployeeFrm = new SalaryEmployee();
+                salaryEmployeeFrm.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario y la contraseña son requeridos");
+        }
+    }
+
+    private boolean authenticateEmployee(String username, String password) {
+        // Definir los usuarios y contraseñas predefinidos
+        String[] usernames = {"Employee#1", "Employee#2", "Employee#3", "Employee#4", "Employee#5", "Employee#6", "Employee#7", "Employee#8", "Employee#9", "Employee#10", "Employee#11", "Employee#12"};
+        String[] passwords = {"Slave#1", "Slave#2", "Slave#3", "Slave#4", "Slave#5", "Slave#6", "Slave#7", "Slave#8", "Slave#9", "Slave#10", "Slave#11", "Slave#12"};
+
+        // Verificar si el usuario y la contraseña coinciden
+        for (int i = 0; i < usernames.length; i++) {
+            if (username.equals(usernames[i]) && password.equals(passwords[i])) {
+                return true;
+            }
+        }
+
+        return false;
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        
+
         UserRegisterFrm userRegisterFrm = new UserRegisterFrm(this, true);
         userRegisterFrm.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
