@@ -28,6 +28,7 @@ public class HomeFrm extends javax.swing.JFrame {
      */
     public HomeFrm() {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.tabla.setModel(model);
         this.model.addColumn("Producto");
         this.model.addColumn("Genero");
@@ -335,175 +336,16 @@ DefaultTableModel model = new DefaultTableModel();
         txtTotalCompra.setText("");
     }//GEN-LAST:event_btnLimTablaActionPerformed
 
-    /*  private void realizarCompra() {
-    // Obtener los valores seleccionados por el usuario
-    String producto = boxProducto.getSelectedItem().toString();
-    String genero = btnHombre.isSelected() ? "Hombre" : "Mujer";
-    String talla = boxTalla.getSelectedItem().toString();
-    int cantidad = 0;
-    double precio = 0;
-    
-    // Validar y obtener el valor de cantidad
-    try {
-        cantidad = Integer.parseInt(boxCantidad.getSelectedItem().toString());
-    } catch (NumberFormatException e) {
-        // Manejar el caso de cantidad no válida (por ejemplo, mostrar un mensaje de error)
-        // Aquí puedes agregar tu lógica de manejo de errores
-        return; // Detener la ejecución del método
-    }
-    
-    // Validar y obtener el valor de precio
-    try {
-        precio = Double.parseDouble(txtPrecio.getText());
-    } catch (NumberFormatException e) {
-        // Manejar el caso de precio no válido (por ejemplo, mostrar un mensaje de error)
-        // Aquí puedes agregar tu lógica de manejo de errores
-        return; // Detener la ejecución del método
-    }
-    
-    double total = cantidad * precio;
-
-    // Agregar los datos a la tabla
-    Object[] rowData = {producto, genero, talla, precio, cantidad, total};
-    model.addRow(rowData);
-
-    // Calcular el total de la compra
-    double totalCompra = 0;
-    for (int i = 0; i < model.getRowCount(); i++) {
-        totalCompra += Double.parseDouble(model.getValueAt(i, 5).toString());
-    }
-    txtTotalCompra.setText(String.valueOf(totalCompra));
-
-    // Limpiar los campos
-    boxProducto.setSelectedIndex(0);
-    buttonGroup1.clearSelection();
-    boxTalla.setSelectedIndex(0);
-    boxCantidad.setSelectedIndex(0);
-    txtPrecio.setText("");
-    txtTotal.setText("");
-}*/
- /*private void realizarCompra() {
-    // Obtener los valores seleccionados por el usuario
-    String producto = boxProducto.getSelectedItem().toString();
-    String genero = btnHombre.isSelected() ? "Hombre" : "Mujer";
-    String talla = boxTalla.getSelectedItem().toString();
-    int cantidad = 0;
-    double precio = 0;
-    
-    // Obtener el precio unitario del producto seleccionado
-    for (int i = 0; i < model.getRowCount(); i++) {
-        String productoTabla = model.getValueAt(i, 0).toString();
-        if (productoTabla.equals(producto)) {
-            precio = Double.parseDouble(model.getValueAt(i, 3).toString());
-            break;
-        }
-    }
-    
-    // Validar y obtener el valor de cantidad
-    try {
-        cantidad = Integer.parseInt(boxCantidad.getSelectedItem().toString());
-    } catch (NumberFormatException e) {
-        // Manejar el caso de cantidad no válida (por ejemplo, mostrar un mensaje de error)
-        // Aquí puedes agregar tu lógica de manejo de errores
-        return; // Detener la ejecución del método
-    }
-    
-    double total = cantidad * precio;
-
-    // Agregar los datos a la tabla
-    Object[] rowData = {producto, genero, talla, precio, cantidad, total};
-    model.addRow(rowData);
-
-    // Calcular el total de la compra
-    double totalCompra = 0;
-    for (int i = 0; i < model.getRowCount(); i++) {
-        totalCompra += Double.parseDouble(model.getValueAt(i, 5).toString());
-    }
-    txtTotalCompra.setText(String.valueOf(totalCompra));
-
-    // Actualizar el campo de precio con el precio unitario
-    txtPrecio.setText(String.valueOf(precio));
-
-    // Limpiar los campos
-    boxProducto.setSelectedIndex(0);
-    buttonGroup1.clearSelection();
-    boxTalla.setSelectedIndex(0);
-    boxCantidad.setSelectedIndex(0);
-    txtTotal.setText("");
-}*/
- /* private void realizarCompra() {
-    // Obtener los valores seleccionados por el usuario
-    String producto = boxProducto.getSelectedItem().toString();
-    String genero = btnHombre.isSelected() ? "Hombre" : "Mujer";
-    String talla = boxTalla.getSelectedItem().toString();
-    int cantidad = 0;
-    double precio = 0;
-
-    // Asignar el precio base según el producto seleccionado
-    if (producto.equals("Top")) {
-        precio = 300;
-    } else if (producto.equals("Pantalon")) {
-        precio = 200;
-    } else if (producto.equals("Zapatos")) {
-        precio = 150;
-    } else if (producto.equals("Vestidos")) {
-        precio = 450;
-    }
-
-    // Aplicar modificaciones al precio según las selecciones del usuario
-    if (genero.equals("Hombre")) {
-        precio += 100;
-    } else if (genero.equals("Mujer")) {
-        precio += 70;
-    }
-
-    if (talla.equals("S") || talla.equals("M") || talla.equals("L") || talla.equals("X")) {
-        precio += 30;
-    } else if (talla.equals("XL") || talla.equals("XXL") || talla.equals("XXXL")) {
-        precio += 110;
-    }
-
-    // Validar y obtener el valor de cantidad
-    try {
-        cantidad = Integer.parseInt(boxCantidad.getSelectedItem().toString());
-    } catch (NumberFormatException e) {
-        // Manejar el caso de cantidad no válida (por ejemplo, mostrar un mensaje de error)
-        // Aquí puedes agregar tu lógica de manejo de errores
-        return; // Detener la ejecución del método
-    }
-
-    double total = cantidad * precio;
-
-    // Agregar los datos a la tabla
-    Object[] rowData = {producto, genero, talla, precio, cantidad, total};
-    model.addRow(rowData);
-
-    // Calcular el total de la compra
-    double totalCompra = 0;
-    for (int i = 0; i < model.getRowCount(); i++) {
-        totalCompra += Double.parseDouble(model.getValueAt(i, 5).toString());
-    }
-    txtTotalCompra.setText(String.valueOf(totalCompra));
-
-    // Actualizar el campo de precio con el precio unitario
-    txtPrecio.setText(String.valueOf(precio));
-
-    // Limpiar los campos
-    boxProducto.setSelectedIndex(0);
-    buttonGroup1.clearSelection();
-    boxTalla.setSelectedIndex(0);
-    boxCantidad.setSelectedIndex(0);
-    txtTotal.setText("");
-}*/
+   
     private void realizarCompra() {
-        // Obtener los valores seleccionados por el usuario
+       
         String producto = boxProducto.getSelectedItem().toString();
         String genero = btnHombre.isSelected() ? "Hombre" : "Mujer";
         String talla = boxTalla.getSelectedItem().toString();
         int cantidad = 0;
         double precio = 0;
 
-        // Asignar el precio base según el producto seleccionado
+       
         switch (producto) {
             case "Top":
                 if (genero.equals("Hombre")) {
@@ -805,7 +647,7 @@ DefaultTableModel model = new DefaultTableModel();
                 break;
         }
 
-        // Aplicar modificaciones al precio según las selecciones del usuario
+       
         if (genero.equals("Hombre")) {
             precio += 100;
         } else if (genero.equals("Mujer")) {
@@ -818,12 +660,11 @@ DefaultTableModel model = new DefaultTableModel();
             precio += 110;
         }
 
-        // Validar y obtener el valor de cantidad
+        
         try {
             cantidad = Integer.parseInt(boxCantidad.getSelectedItem().toString());
         } catch (NumberFormatException e) {
-            // Manejar el caso de cantidad no válida (por ejemplo, mostrar un mensaje de error)
-            // Aquí puedes agregar tu lógica de manejo de errores
+           
             return; // Detener la ejecución del método
         }
 
@@ -870,12 +711,12 @@ DefaultTableModel model = new DefaultTableModel();
 
     private void btnQuitarComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarComActionPerformed
         // TODO add your handling code here:
-        // Obtener el número de filas en la tabla
+        
         int rowCount = tabla.getRowCount();
 
         // Verificar si hay al menos una fila en la tabla
         if (rowCount > 0) {
-            // Eliminar la última fila
+            
             DefaultTableModel model = (DefaultTableModel) tabla.getModel();
             model.removeRow(rowCount - 1);
 
@@ -896,53 +737,9 @@ DefaultTableModel model = new DefaultTableModel();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void btnNetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNetoActionPerformed
-        // TODO add your handling code here:
-          // Verificar si hay al menos una compra realizada
-   /* if (tabla.getRowCount() > 0) {
-        try {
-            // Obtener el nombre del archivo
-            String nombreArchivo = "ticket.txt";
-
-            // Crear el FileWriter y PrintWriter
-            FileWriter archivo = new FileWriter(nombreArchivo);
-            PrintWriter escritor = new PrintWriter(archivo);
-
-            // Escribir los detalles del pedido en el archivo
-            escritor.println("DETALLES DEL PEDIDO");
-            escritor.println("-------------------");
-            escritor.println();
-
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                String producto = tabla.getValueAt(i, 0).toString();
-                String genero = tabla.getValueAt(i, 1).toString();
-                String talla = tabla.getValueAt(i, 2).toString();
-                double precio = Double.parseDouble(tabla.getValueAt(i, 3).toString());
-                int cantidad = Integer.parseInt(tabla.getValueAt(i, 4).toString());
-                double total = Double.parseDouble(tabla.getValueAt(i, 5).toString());
-
-                escritor.println("Producto: " + producto);
-                escritor.println("Género: " + genero);
-                escritor.println("Talla: " + talla);
-                escritor.println("Precio: $" + precio);
-                escritor.println("Cantidad: " + cantidad);
-                escritor.println("Total: $" + total);
-                escritor.println();
-            }
-
-            // Cerrar el FileWriter y PrintWriter
-            escritor.close();
-            archivo.close();
-
-            System.out.println("Ticket generado correctamente.");
-
-        } catch (IOException e) {
-            System.out.println("Error al generar el ticket: " + e.getMessage());
-        }
-    } else {
-        System.out.println("No hay compras realizadas para generar el ticket.");
-    }*/
+        
     if (tabla.getRowCount() > 0) {
-        // Obtener los datos del usuario
+       
         String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
         String apellido = JOptionPane.showInputDialog(this, "Ingrese su apellido:");
         String usuario = JOptionPane.showInputDialog(this, "Ingrese su usuario:");
@@ -964,7 +761,7 @@ DefaultTableModel model = new DefaultTableModel();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto (.txt)", "txt");
                 fileChooser.setFileFilter(filter);
 
-                // Mostrar el diálogo de guardar archivo
+                
                 int userSelection = fileChooser.showSaveDialog(this);
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {

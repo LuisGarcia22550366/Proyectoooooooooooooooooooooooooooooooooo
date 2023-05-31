@@ -206,24 +206,7 @@ public class UserRegisterFrm extends javax.swing.JDialog {
         return password;
     
 
-   /* if (!Name.getText () 
-        .isEmpty()
-                && !LastName.getText().isEmpty()
-                && !Mail.getText().isEmpty()
-                && !txtUser.getText().isEmpty()
-                && !txtPassword.getText().isEmpty()
-                && Password2.getText().equals(txtPassword.getText())) {
-
-            User user = new User(txtUser.getText(), txtPassword.getText(), Name.getText(), LastName.getText(), Mail.getText());
-        if (UserLogic.insert(user)) {
-            JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente");
-            this.dispose();
-            LoginFrm loginFrm = new LoginFrm();
-            loginFrm.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario ya existente");
-        }
-    }*/
+  
     }//GEN-LAST:event_RegistrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
