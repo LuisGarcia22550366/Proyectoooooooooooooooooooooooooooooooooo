@@ -149,16 +149,36 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="Name">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="NameCaretUpdate"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NameActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="LastName">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="LastNameCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="Mail">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="MailCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUser">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtUserCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPassword">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtPasswordCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="Password2">
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="Password2CaretUpdate"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Password2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Registrar">
       <Properties>

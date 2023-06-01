@@ -6,6 +6,8 @@ package view;
 
 import com.mycompany.tiendalogin.User;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import logic.UserLogic;
 
 /**
@@ -14,6 +16,12 @@ import logic.UserLogic;
  */
 public class UserRegisterFrm extends javax.swing.JDialog {
 
+    private User user;
+
+    private void name() {
+
+    }
+
     /**
      * Creates new form UserRegisterFrm
      */
@@ -21,7 +29,7 @@ public class UserRegisterFrm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-
+        user = new User("", "", "", "", "");
     }
 
     /**
@@ -66,6 +74,52 @@ public class UserRegisterFrm extends javax.swing.JDialog {
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Repetir contraseña");
+
+        Name.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                NameCaretUpdate(evt);
+            }
+        });
+        Name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NameActionPerformed(evt);
+            }
+        });
+
+        LastName.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                LastNameCaretUpdate(evt);
+            }
+        });
+
+        Mail.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                MailCaretUpdate(evt);
+            }
+        });
+
+        txtUser.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtUserCaretUpdate(evt);
+            }
+        });
+
+        txtPassword.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPasswordCaretUpdate(evt);
+            }
+        });
+
+        Password2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                Password2CaretUpdate(evt);
+            }
+        });
+        Password2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Password2ActionPerformed(evt);
+            }
+        });
 
         Registrar.setText("Registrar");
         Registrar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,59 +209,42 @@ public class UserRegisterFrm extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private String name;
-    private String lastName;
-    private String mail;
-    private String username;
-    private String password;
+
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
         if (!Name.getText().isEmpty()
                 && !LastName.getText().isEmpty()
                 && !Mail.getText().isEmpty()
                 && !txtUser.getText().isEmpty()
-                && !txtPassword.getText().isEmpty()
-                && Password2.getText().equals(txtPassword.getText())) {
+                && !txtPassword.getText().isEmpty()) {
 
-            name = Name.getText();
-            lastName = LastName.getText();
-            mail = Mail.getText();
-            username = txtUser.getText();
-            password = txtPassword.getText();
+            String name = Name.getText();
+            String lastName = LastName.getText();
+            String mail = Mail.getText();
+            String username = txtUser.getText();
+            String password = txtPassword.getText();
 
-            User user = new User(username, password, name, lastName, mail);
-            if (UserLogic.insert(user)) {
-                JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente");
-                this.dispose();
-                LoginFrm loginFrm = new LoginFrm();
-                loginFrm.setVisible(true);
+            if (Password2.getText().equals(password)) {
+                User user = new User(username, password, name, lastName, mail);
+                HomeFrmTest.setNombre(name);
+                HomeFrmTest.setApellido(lastName);
+                HomeFrmTest.setMail(mail);
+                HomeFrmTest.setUsuario(username);
+                if (UserLogic.insert(user)) {
+                    JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente");
+                    this.dispose();
+                    LoginFrm loginFrm = new LoginFrm();
+                    loginFrm.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario ya existente");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Usuario ya existente");
+                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    
-
-  
     }//GEN-LAST:event_RegistrarActionPerformed
+
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
@@ -216,10 +253,56 @@ public class UserRegisterFrm extends javax.swing.JDialog {
         loginFrm.setVisible(true);
     }//GEN-LAST:event_cancelarActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    private void Password2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Password2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Password2ActionPerformed
+
+    private void NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NameActionPerformed
+
+    private void NameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_NameCaretUpdate
+        // TODO add your handling code here:
+        HomeFrmTest hom = new HomeFrmTest();
+        hom.setNombre(Name.getText().trim());
+    }//GEN-LAST:event_NameCaretUpdate
+
+    private void LastNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_LastNameCaretUpdate
+        // TODO add your handling code here:
+        HomeFrmTest hom = new HomeFrmTest();
+        hom.setApellido(LastName.getText().trim());
+    }//GEN-LAST:event_LastNameCaretUpdate
+
+    private void MailCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_MailCaretUpdate
+        // TODO add your handling code here:
+        HomeFrmTest hom = new HomeFrmTest();
+        hom.setMail(Mail.getText().trim());
+    }//GEN-LAST:event_MailCaretUpdate
+
+    private void txtUserCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtUserCaretUpdate
+        // TODO add your handling code here:
+        HomeFrmTest hom = new HomeFrmTest();
+        hom.setUsuario(txtUser.getText().trim());
+    }//GEN-LAST:event_txtUserCaretUpdate
+
+    private void txtPasswordCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPasswordCaretUpdate
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtPasswordCaretUpdate
+
+    private void Password2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_Password2CaretUpdate
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_Password2CaretUpdate
+
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -231,27 +314,23 @@ public static void main(String args[]) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserRegisterFrm.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UserRegisterFrm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -261,7 +340,7 @@ public static void main(String args[]) {
                 UserRegisterFrm dialog = new UserRegisterFrm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-public void windowClosing(java.awt.event.WindowEvent e) {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

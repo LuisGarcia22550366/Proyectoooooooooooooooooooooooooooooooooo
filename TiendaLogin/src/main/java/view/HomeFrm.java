@@ -1,6 +1,6 @@
-
 package view;
 
+import com.mycompany.tiendalogin.User;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -17,14 +17,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 public class HomeFrm extends javax.swing.JFrame {
 
-    
     public HomeFrm() {
+
         initComponents();
+
         setWindowSize();
-        
+
         this.tabla.setModel(model);
         this.model.addColumn("Producto");
         this.model.addColumn("Genero");
@@ -32,7 +32,6 @@ public class HomeFrm extends javax.swing.JFrame {
         this.model.addColumn("Precio unitario");
         this.model.addColumn("Cantidad");
         this.model.addColumn("Total a pagar");
-
 
     }
 
@@ -733,10 +732,11 @@ DefaultTableModel model = new DefaultTableModel();
 
         if (tabla.getRowCount() > 0) {
 
-            String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
-            String apellido = JOptionPane.showInputDialog(this, "Ingrese su apellido:");
-            String usuario = JOptionPane.showInputDialog(this, "Ingrese su usuario:");
-            String correo = JOptionPane.showInputDialog(this, "Ingrese su correo electrónico:");
+            JOptionPane.showMessageDialog(this, "Gracias por elegirnos, los detalles de facturacion se guardaran a continuación");
+            String nombre = HomeFrmTest.getNombre();
+            String apellido = HomeFrmTest.getApellido();
+            String usuario = HomeFrmTest.getUsuario();
+            String correo = HomeFrmTest.getMail();
             String calle = JOptionPane.showInputDialog(this, "Ingrese la dirección de su calle:");
             String numero = JOptionPane.showInputDialog(this, "Ingrese el número exterior:");
             String numeroIn = JOptionPane.showInputDialog(this, "Ingrese su número interior (solo en caso de tenerlo, de lo contrario, escriba 0):");
@@ -744,7 +744,6 @@ DefaultTableModel model = new DefaultTableModel();
             String cp = JOptionPane.showInputDialog(this, "Ingrese su código postal:");
             String ciudad = JOptionPane.showInputDialog(this, "Ingrese su ciudad:");
             String estado = JOptionPane.showInputDialog(this, "Ingrese su estado (solo México):");
-            JOptionPane.showMessageDialog(this, "Gracias por elegirnos, los detalles de facturacion se guardaran a continuación");
 
             if (nombre != null && apellido != null && usuario != null && correo != null) {
                 try {
@@ -890,15 +889,15 @@ DefaultTableModel model = new DefaultTableModel();
     // End of variables declaration//GEN-END:variables
 
     private void setWindowSize() {
-        
+
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int screenWidth = screenSize.width;
         int screenHeight = screenSize.height;
-        
+
         int targetWidth = 1244; // Tamaño deseado del ancho del JFrame
         int targetHeight = 886; // Tamaño deseado del alto del JFrame
-        
+
         // Verificar si la pantalla es más pequeña que el tamaño deseado
         if (screenWidth < targetWidth || screenHeight < targetHeight) {
             // Ajustar el tamaño del JFrame para que se ajuste a la pantalla
@@ -908,9 +907,8 @@ DefaultTableModel model = new DefaultTableModel();
         } else {
             this.setSize(targetWidth, targetHeight); // Mantener el tamaño deseado
         }
-        
+
         this.setLocationRelativeTo(null); // Centrar el JFrame en la pantalla
     }
-    
-    }
 
+}

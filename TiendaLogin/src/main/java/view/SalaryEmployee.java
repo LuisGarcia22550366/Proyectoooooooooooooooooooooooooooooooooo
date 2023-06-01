@@ -15,11 +15,14 @@ import javax.swing.JTextField;
  */
 public class SalaryEmployee extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form SalaryEmployee
      */
     public SalaryEmployee() {
+       
         initComponents();
+        this.setLocationRelativeTo(null);
         fecha.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
